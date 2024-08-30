@@ -658,7 +658,7 @@ import_dotenv.default.config();
 var server = (0, import_express4.default)();
 server.use(
   (0, import_cors.default)({
-    origin: "https://bucolic-belekoy-f1f67a.netlify.app",
+    origin: "https://daily-goals-api.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })

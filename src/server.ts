@@ -11,7 +11,7 @@ const server = express();
 
 server.use(
   cors({
-    origin: "https://bucolic-belekoy-f1f67a.netlify.app",
+    origin: "https://daily-goals-api.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
