@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  @@map("users")
+  ip String @id @unique
+  goals Goal[]
+}
+
+model DaySale {
+  @@map("daySales")
+  id String @id @unique
+  day DateTime  @default(now()) 
+  sales Float
+
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  goalId String
+}
+
+model Goal {
+  @@map("goals")
+  id String @id @unique
+  name String
+  monthlyGoal Float
+  workingDays Int
+  userIp String
+  daySales DaySale[]
+
+  user User @relation(fields: [userIp], references: [ip], onDelete: Cascade)
+}
