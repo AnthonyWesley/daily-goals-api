@@ -9,15 +9,8 @@ dotenv.config();
 
 const server = express();
 
-server.use(
-  cors({
-    origin: ["http://localhost:5173", "https://daily-goals-api.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-
 server.use(express.json());
+server.use(cors({ origin: "*" }));
 
 server.use(userRouter);
 server.use(goalRouter);
