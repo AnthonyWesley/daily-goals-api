@@ -10,7 +10,8 @@ export class GoalController {
 
   async list(request: Request, response: Response) {
     try {
-      const ip = (request.headers["x-forwarded-for"] as string) || request.ip;
+      const ip = (request.headers.authorization as string) || request.ip;
+
       const taskListing = await this.goalServiceFactory.GoalListingService();
       const tasks = await taskListing.list(ip ?? "");
       return response.status(200).json(tasks);
@@ -22,7 +23,7 @@ export class GoalController {
 
   async write(request: Request, response: Response) {
     try {
-      const ip = (request.headers["x-forwarded-for"] as string) || request.ip;
+      const ip = (request.headers.authorization as string) || request.ip;
       const { name, monthlyGoal, workingDays } = request.body;
 
       const taskCreation = await this.goalServiceFactory.GoalCreationService();

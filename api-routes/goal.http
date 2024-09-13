@@ -1,0 +1,38 @@
+###
+GET http://localhost:3001/goal
+
+###
+POST http://localhost:3001/goal/write
+Content-Type: application/json
+
+{
+  "name": "trabalho2",
+  "monthlyGoal": 1000,
+  "workingDays": 9,
+  "totalSales": 0
+}
+
+
+
+###
+POST http://localhost:3001/goal/01J3JK4DAR82C2FKFEY7AEZXQF/change 
+Content-Type: application/json
+
+{
+    "description":"12ztste"
+}
+
+###
+POST http://localhost:3001/goal/01J3Y1PWNG0KDR3Y796PA1JJ1W/done 
+Content-Type: application/json
+
+###
+
+POST http://localhost:3001/goal/01J3JK4DAR82C2FKFEY7AEZXQF/daily 
+Content-Type: application/json
+
+###
+DELETE  http://localhost:3001/goal/01J3JK4DAR82C2FKFEY7AEZXQF/delete 
+Content-Type: application/json
+
+

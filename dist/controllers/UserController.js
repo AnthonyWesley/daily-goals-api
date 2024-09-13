@@ -32,7 +32,7 @@ var UserController = class _UserController {
   }
   async write(request, response) {
     try {
-      const ip = request.headers["x-forwarded-for"] || request.ip;
+      const ip = request.headers.authorization || request.ip;
       console.log(ip);
       const userCreation = await this.userServiceFactory.UserCreationService();
       const user = await userCreation.create(ip ?? "");
@@ -44,7 +44,7 @@ var UserController = class _UserController {
   }
   async list(request, response) {
     try {
-      const ip = request.headers["x-forwarded-for"] || request.ip;
+      const ip = request.headers.authorization || request.ip;
       console.log(ip);
       const userListing = await this.userServiceFactory.UserListingService();
       const users = await userListing.list(ip ?? "");

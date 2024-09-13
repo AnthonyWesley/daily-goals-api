@@ -400,7 +400,7 @@ var GoalController = class _GoalController {
   }
   async list(request, response) {
     try {
-      const ip = request.headers["x-forwarded-for"] || request.ip;
+      const ip = request.headers.authorization || request.ip;
       const taskListing = await this.goalServiceFactory.GoalListingService();
       const tasks = await taskListing.list(ip ?? "");
       return response.status(200).json(tasks);
@@ -411,7 +411,7 @@ var GoalController = class _GoalController {
   }
   async write(request, response) {
     try {
-      const ip = request.headers["x-forwarded-for"] || request.ip;
+      const ip = request.headers.authorization || request.ip;
       const { name, monthlyGoal, workingDays } = request.body;
       const taskCreation = await this.goalServiceFactory.GoalCreationService();
       const task = await taskCreation.create(
@@ -532,7 +532,7 @@ var UserController = class _UserController {
   }
   async write(request, response) {
     try {
-      const ip = request.headers["x-forwarded-for"] || request.ip;
+      const ip = request.headers.authorization || request.ip;
       console.log(ip);
       const userCreation = await this.userServiceFactory.UserCreationService();
       const user = await userCreation.create(ip ?? "");
@@ -544,7 +544,7 @@ var UserController = class _UserController {
   }
   async list(request, response) {
     try {
-      const ip = request.headers["x-forwarded-for"] || request.ip;
+      const ip = request.headers.authorization || request.ip;
       console.log(ip);
       const userListing = await this.userServiceFactory.UserListingService();
       const users = await userListing.list(ip ?? "");
@@ -656,14 +656,8 @@ userRouter.post(
 // src/server.ts
 import_dotenv.default.config();
 var server = (0, import_express4.default)();
-server.use(
-  (0, import_cors.default)({
-    origin: ["http://localhost:5173", "https://daily-goals-api.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
 server.use(import_express4.default.json());
+server.use((0, import_cors.default)({ origin: "*" }));
 server.use(userRouter);
 server.use(goalRouter);
 server.use(daySalesRoute);

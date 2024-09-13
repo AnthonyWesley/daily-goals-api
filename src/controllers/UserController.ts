@@ -10,7 +10,7 @@ export class UserController {
 
   async write(request: Request, response: Response) {
     try {
-      const ip = (request.headers["x-forwarded-for"] as string) || request.ip;
+      const ip = (request.headers.authorization as string) || request.ip;
       console.log(ip);
 
       const userCreation = await this.userServiceFactory.UserCreationService();
@@ -25,7 +25,7 @@ export class UserController {
 
   async list(request: Request, response: Response) {
     try {
-      const ip = (request.headers["x-forwarded-for"] as string) || request.ip;
+      const ip = (request.headers.authorization as string) || request.ip;
       console.log(ip);
 
       const userListing = await this.userServiceFactory.UserListingService();

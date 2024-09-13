@@ -1,0 +1,22 @@
+###
+https://daily-goals-api.vercel.app/
+###
+
+
+GET https://daily-goals-api.vercel.app/user
+
+###
+POST https://daily-goals-api.vercel.app/user/write
+Content-Type: application/json
+
+{
+  "ip": "trabalho"
+
+}
+
+
+###
+DELETE  https://daily-goals-api.vercel.app/user/01J3JK4DAR82C2FKFEY7AEZXQF/delete 
+Content-Type: application/json
+
+
