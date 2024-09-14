@@ -10,11 +10,10 @@ export class UserController {
 
   async write(request: Request, response: Response) {
     try {
-      const ip = (request.headers.authorization as string) || request.ip;
-      console.log(ip);
+      const { deviceId } = request.body;
 
       const userCreation = await this.userServiceFactory.UserCreationService();
-      const user = await userCreation.create(ip ?? "");
+      const user = await userCreation.create(deviceId ?? "");
 
       return response.status(201).json(user);
     } catch (error) {
@@ -25,11 +24,10 @@ export class UserController {
 
   async list(request: Request, response: Response) {
     try {
-      const ip = (request.headers.authorization as string) || request.ip;
-      console.log(ip);
+      const { deviceId } = request.body;
 
       const userListing = await this.userServiceFactory.UserListingService();
-      const users = await userListing.list(ip ?? "");
+      const users = await userListing.list(deviceId ?? "");
 
       return response.status(200).json(users);
     } catch (error) {

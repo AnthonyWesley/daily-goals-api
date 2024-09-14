@@ -10,7 +10,7 @@ export class GoalController {
 
   async list(request: Request, response: Response) {
     try {
-      const ip = (request.headers.authorization as string) || request.ip;
+      const ip = request.headers.authorization;
 
       const taskListing = await this.goalServiceFactory.GoalListingService();
       const tasks = await taskListing.list(ip ?? "");
@@ -22,8 +22,10 @@ export class GoalController {
   }
 
   async write(request: Request, response: Response) {
+    console.log("RESPOSTA", request.headers.authorization);
     try {
-      const ip = (request.headers.authorization as string) || request.ip;
+      const ip = request.headers.authorization;
+
       const { name, monthlyGoal, workingDays } = request.body;
 
       const taskCreation = await this.goalServiceFactory.GoalCreationService();

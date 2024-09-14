@@ -400,7 +400,7 @@ var GoalController = class _GoalController {
   }
   async list(request, response) {
     try {
-      const ip = request.headers.authorization || request.ip;
+      const ip = request.headers.authorization;
       const taskListing = await this.goalServiceFactory.GoalListingService();
       const tasks = await taskListing.list(ip ?? "");
       return response.status(200).json(tasks);
@@ -410,8 +410,9 @@ var GoalController = class _GoalController {
     }
   }
   async write(request, response) {
+    console.log("RESPOSTA", request.headers.authorization);
     try {
-      const ip = request.headers.authorization || request.ip;
+      const ip = request.headers.authorization;
       const { name, monthlyGoal, workingDays } = request.body;
       const taskCreation = await this.goalServiceFactory.GoalCreationService();
       const task = await taskCreation.create(
@@ -532,10 +533,9 @@ var UserController = class _UserController {
   }
   async write(request, response) {
     try {
-      const ip = request.headers.authorization || request.ip;
-      console.log(ip);
+      const { deviceId } = request.body;
       const userCreation = await this.userServiceFactory.UserCreationService();
-      const user = await userCreation.create(ip ?? "");
+      const user = await userCreation.create(deviceId ?? "");
       return response.status(201).json(user);
     } catch (error) {
       console.error("Error creating user:", error);
@@ -544,10 +544,9 @@ var UserController = class _UserController {
   }
   async list(request, response) {
     try {
-      const ip = request.headers.authorization || request.ip;
-      console.log(ip);
+      const { deviceId } = request.body;
       const userListing = await this.userServiceFactory.UserListingService();
-      const users = await userListing.list(ip ?? "");
+      const users = await userListing.list(deviceId ?? "");
       return response.status(200).json(users);
     } catch (error) {
       console.error("Error listing users:", error);
